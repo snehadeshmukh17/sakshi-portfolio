@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakshi Deshmukh | Research & Technical Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #050810;
+    --surface: #0c1120;
+    --card: #101828;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #00ff9d;
+    --text: #e8eaf0;
+    --muted: #7a8499;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+/* ===== TRADING BACKGROUND ===== */
+
+body {
+  background:
+    /* Uptrend line */
+    linear-gradient(
+      155deg,
+      transparent 0%,
+      transparent 45%,
+      rgba(0, 212, 255, 0.25) 46%,
+      rgba(0, 212, 255, 0.25) 46.3%,
+      transparent 47%
+    ),
+
+    /* Blue grid */
+    linear-gradient(
+      rgba(0, 212, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 212, 255, 0.05) 1px,
+      transparent 1px
+    ),
+
+    /* Dark base */
+    radial-gradient(
+      circle at top,
+      #07152c,
+      #020817 65%
+    );
+
+  background-size:
+    90% 90%,
+    60px 60px,
+    60px 60px,
+    90% 90%;
+
+  background-attachment: scroll;
+  color: #fff;
+  overflow-x: hidden;
+   overflow-y: auto;
+
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    /* Green candles */
+    linear-gradient(
+      rgba(0, 255, 157, 0.08),
+      rgba(0, 255, 157, 0.08)
+    ) 15% 55% / 10px 120px no-repeat,
+
+    linear-gradient(
+      rgba(0, 255, 157, 0.08),
+      rgba(0, 255, 157, 0.08)
+    ) 45% 35% / 10px 150px no-repeat,
+
+    linear-gradient(
+      rgba(0, 255, 157, 0.08),
+      rgba(0, 255, 157, 0.08)
+    ) 80% 20% / 10px 180px no-repeat,
+
+    /* Red candles */
+    linear-gradient(
+      rgba(255, 80, 80, 0.08),
+      rgba(255, 80, 80, 0.08)
+    ) 30% 40% / 10px 100px no-repeat,
+
+    linear-gradient(
+      rgba(255, 80, 80, 0.08),
+      rgba(255, 80, 80, 0.08)
+    ) 65% 50% / 10px 140px no-repeat;
+
+  opacity: 1;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle, rgba(0, 212, 255, 0.7) 2px, transparent 3px)
+      10% 20% / 250px 250px,
+    radial-gradient(circle, rgba(0, 255, 157, 0.6) 2px, transparent 3px)
+      80% 30% / 300px 300px,
+    radial-gradient(circle, rgba(255, 80, 80, 0.5) 2px, transparent 3px)
+      60% 80% / 280px 280px;
+
+  opacity: 0.5;
+}
+
+  /* ── CANVAS BG ── */
+ #bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+   width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+  /* ── NAV ── */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  z-index: 999;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(5, 8, 16, 0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 7% 80px;
+    z-index: 1;
+  }
+
+  .hero-inner {
+    max-width: 780px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--accent3);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+    justify-content: center;
+  }
+
+  .grad-text {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 700px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+    line-height: 1.7;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    padding: 14px 30px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 30px rgba(0,212,255,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(0,212,255,0.45);
+  }
+
+  .btn-secondary {
+    padding: 14px 30px;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,212,255,0.05);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 0px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+  }
+
+  .scroll-indicator span {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 7%;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 1400px;
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: linear-gradient(180deg, transparent, rgba(124,58,237,0.04), transparent);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .about-card p {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  .about-card p + p { margin-top: 16px; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border: 3px solid var(--border);
+    border-radius: 24px;
+    padding: 30px;
+  background:  rgba(0,212,255,0.06);
+    }
+
+
+  .skill-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(0,212,255,0.06);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .skill-chip:hover {
+    background: rgba(0,212,255,0.12);
+    border-color: rgba(0,212,255,0.35);
+    transform: translateX(4px);
+  }
+
+  .skill-chip::before {
+    content: '▸';
+    color: var(--accent3);
+    font-size: 0.7rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience  {
+    background: linear-gradient(180deg, transparent, rgba(124,58,237,0.04), transparent);
+  }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .exp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .exp-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,212,255,0.05), transparent);
+    opacity: 100;
+    transition: opacity 0.3s;
+    border-radius: 20px;
+  }
+
+  .exp-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0,212,255,0.08);
+  }
+
+  .exp-card:hover::after { opacity: 1; }
+
+  .exp-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .exp-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .exp-role {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .exp-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+  .timeline {
+  position: relative;
+  max-width: 1000px;
+  margin-top: 80px;
+  padding-left: 60px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: rgba(0, 212, 255, 0.3);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -50px;
+  top: 28px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent);
+}
+
+.exp-card {
+  background: rgba(12, 18, 35, 0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(20px);
+  
+}
+
+.exp-card .date {
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.exp-card h3 {
+  margin: 12px 0;
+  font-size: 1.7rem;
+  color: #fff;
+}
+
+.exp-card p {
+  color: #8c92a5;
+  line-height: 1.8;
+}
+ body {
+      background: #050b1f;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 100px;
+    }
+
+    .experience {
+      position: relative;
+      width: 500px;
+        margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: #09152f;
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 255, 255, 0.15);
+      cursor: pointer;
+    }
+
+    .role {
+      color: #00e5ff;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .company {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .date {
+      color: #b0b0b0;
+      margin-bottom: 15px;
+    }
+
+    .summary {
+      color: #d0d0d0;
+    }
+
+    /* Popup Box */
+    .details {
+      position: absolute;
+      left: 110%;
+      top: 0;
+      width: 700px;
+      background: #09152f;
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid #00e5ff;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(20px);
+      transition: 0.3s;
+    }
+
+    .experience:hover .details {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .details h3 {
+      color: #00e5ff;
+      margin-top: 0;
+    }
+
+    .details ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+ /* ───────── RESEARCH SECTION ───────── */
+
+#research {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 212, 255, 0.02),
+    transparent
+  );
+}
+
+/* Grid */
+* {
+  box-sizing: border-box;
+}
+
+#research {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0,212,255,0.02),
+    transparent
+  );
+}
+
+
+#research {
+  padding: 100px 2rem;
+}
+
+.research-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.research-card {
+  width: 33%;
+}
+/* Card */
+.research-card {
+  flex: 0 0 400px;
+  box-sizing: border-box;
+
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(0, 212, 255, 0.03)
+  );
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 2rem;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s ease;
+}
+
+/* Top Accent Line */
+.research-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #00c6ff,
+    #0072ff,
+    #7f5af0
+  );
+  opacity: 0;
+  transition: 0.35s;
+}
+
+/* Hover */
+.research-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(0, 198, 255, 0.3);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 0 35px rgba(0, 198, 255, 0.15);
+}
+
+.research-card:hover::before {
+  opacity: 1;
+}
+
+/* Top Meta */
+.research-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.research-date {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.research-tag {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tag-bullish {
+  background: rgba(0, 255, 157, 0.12);
+  color: #00ff9d;
+}
+
+.tag-bearish {
+  background: rgba(255, 80, 80, 0.12);
+  color: #ff6b6b;
+}
+
+.tag-sector,
+.tag-neutral {
+  background: rgba(0, 198, 255, 0.12);
+  color: #00c6ff;
+}
+
+/* Title */
+.research-card h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Highlight Pills */
+.research-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.highlight-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d9d9d9;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+/* PDF Button */
+.research-card .btn {
+  margin-top: 2rem;
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 30px;
+  border-radius: 50px;
+
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+}
+
+.research-card .btn:hover {
+  background: var(--accent);
+  color: #081843;
+}
+
+  /* ── CONTACT ── */
+  #contact  {
+    background: linear-gradient(180deg, transparent, rgba(124,58,237,0.04), transparent);
+   
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent2), var(--accent));
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-item:last-child { border-bottom: none; }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    background: rgba(0,212,255,0.1);
+    flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; }
+  .contact-value { font-size: 0.95rem; font-weight: 500; }
+
+  .sebi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 12px;
+    font-size: 0.82rem;
+    color: #a78bfa;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  .sebi-badge::before { content: '🛡'; }
+  .btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 14px 32px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  justify-content: center;
+  left: 50%;
+}
+
+.btn:hover {
+  background: var(--accent);
+  color: #050810;
+}
+
+  /* ── TICKER ── */
+  .ticker-wrapper {
+    position: relative;
+    z-index: 1;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 48px;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .ticker-bull { color: var(--accent3); }
+  .ticker-bear { color: #ff6b6b; }
+  .ticker-sep { color: rgba(255,255,255,0.15); }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+
+footer {
+  margin-top: 0 !important;
+}
+  /* ── FOOTER ── */
+ footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 10px 1% 0px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-bottom: auto;
+  padding-bottom: 0px
+}
+  footer span { color: var(--accent); }
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── GLOW CURSOR ── */
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.15s ease, top 0.15s ease;
+  }
+  
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 30px; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 28px; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 70px 5%; }
+    .research-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; }
+  }
+</style>
+
+
+<canvas id="bgCanvas"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAV -->
+<nav>
+ 
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#research">Research</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrapper" style="margin-top:0px;">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item"><b>ADANIENSOL</b> <span class="ticker-bull">▲ BUY ABV 877 → TGT 981</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>JBMA</b> <span class="ticker-bull">▲ BUY ABV 682.65 → TGT 745</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>PRICOLLTD</b> <span class="ticker-bull">▲ BUY ABV 540.30 → TGT 600</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>NIFTY REALTY</b> <span class="ticker-bear">▼ SELL BLW 870 → TGT 680</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>NTPC</b> <span class="ticker-bull">▲ BUY ABV 390 → TGT 413</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>POWERGRID</b> <span class="ticker-bull">▲ BUY ABV 303 → TGT 321</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>DLF</b> <span class="ticker-bear">▼ SELL BLW 695 → TGT 600</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>ANANTRAJ</b> <span class="ticker-bear">▼ SELL BLW 507 → TGT 396</span></span>
+    <span class="ticker-sep">◆</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><b>ADANIENSOL</b> <span class="ticker-bull">▲ BUY ABV 877 → TGT 981</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>JBMA</b> <span class="ticker-bull">▲ BUY ABV 682.65 → TGT 745</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>PRICOLLTD</b> <span class="ticker-bull">▲ BUY ABV 540.30 → TGT 600</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>NIFTY REALTY</b> <span class="ticker-bear">▼ SELL BLW 870 → TGT 680</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>NTPC</b> <span class="ticker-bull">▲ BUY ABV 390 → TGT 413</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>POWERGRID</b> <span class="ticker-bull">▲ BUY ABV 303 → TGT 321</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>DLF</b> <span class="ticker-bear">▼ SELL BLW 695 → TGT 600</span></span>
+    <span class="ticker-sep">◆</span>
+    <span class="ticker-item"><b>ANANTRAJ</b> <span class="ticker-bear">▼ SELL BLW 507 → TGT 396</span></span>
+    <span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">Research & Technical Analyst</div>
+    <h1>Turning Market Data Into <span class="grad-text">Actionable Insights.</span></h1>
+    <p class="hero-desc">Equity, Commodity & Technical Research Analyst specialising in market trends, trading strategies, investment research and portfolio advisory — based in Kalyan, Maharashtra.</p>
+    <div class="hero-btns">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="#contact" class="btn-secondary">Let's Connect</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Research Reports</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Firms Worked</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Market Passion</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Analyst by Training,<br>Trader by Instinct.</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-card">
+      <p>Equity and Commodity Research Analyst with hands-on experience in technical analysis, Futures & Options research, market trend analysis, portfolio management and investment advisory.</p>
+      <p>Passionate about transforming raw market data into profitable opportunities through rigorous research, multi-timeframe analysis, and evidence-based trading frameworks.</p>
+      <p>With exposure across equities, commodities, and forex markets, I bring a multi-asset perspective to every analysis — combining Fibonacci retracements, moving averages, MACD, RSI, and price action into cohesive, actionable trade setups.</p>
+      <div class="sebi-badge">Published research with SEBI-registered firm (INH000006156)</div>
+    </div>
+    <div class="skills-grid">
+      <div class="section-label">skills</div><br>
+      <div class="skill-chip">Technical Analysis</div>
+      <div class="skill-chip">Equity Research</div>
+      <div class="skill-chip">Commodity Analysis</div>
+      <div class="skill-chip">Market Research</div>
+      <div class="skill-chip">F&O Trading</div>
+      <div class="skill-chip">Portfolio Management</div>
+      <div class="skill-chip">Mutual Funds</div>
+      <div class="skill-chip">MS Excel</div>
+      <div class="skill-chip">SWOT Analysis</div>
+      <div class="skill-chip">Fibonacci Methods</div>
+      <div class="skill-chip">Report Writing</div>
+      <div class="skill-chip">Fundamental Research</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I've Built My Edge.</h2>
+    <p class="section-sub">Three roles, three distinct market lenses — each one sharpening my ability to read price action and deliver research that matters.</p>
+  </div>
+<div class="experience">
+  <div class="card" onclick="toggleDetails(this)">
+    <div class="role">Technical & Research Analyst</div>
+    <div class="company">Kedia Capitals</div>
+    <div class="date">Feb 2025 – Present</div>
+    <div class="summary">
+      Providing technical research and market analysis.
+    </div>
+  </div>
+
+  <div class="details">
+    <h3>Responsibilities</h3>
+    <ul>
+      <li>Provide technical and research-based trading calls, including Futures &
+Options (F&O), to clients based on market analysis.</li>
+      <li>Prepare detailed technical reports on both equity and commodity
+markets to assist in investment decisions.</li>
+      <li>Deliver regular video content on YouTube, offering equity market
+roundups, trend analysis, and actionable insights for retail investors..</li>
+      <li>Offer personalized investment suggestions to clients, helping them
+build profitable strategies based on technical indicators and market
+trends</li>
+    </ul>
+  </div>
+</div>
+
+
+   <div class="experience">
+  <div class="card" onclick="toggleDetails(this)">
+    <div class="role">Mutual Fund Distributor Intern</div>
+    <div class="company">Prosecure Investment</div>
+    <div class="date">Oct 2025 - Dec 2025</div>
+    <div class="summary">
+      Conducting market research and equity analysis
+    </div>
+  </div>
+
+  <div class="details">
+    <h3>Responsibilities</h3>
+    <ul>
+      <li>Specializing in providing technical trade calls in commodities and
+equities to clients.</li>
+      <li>Hands-on experience in creating detailed equity reports.</li>
+      <li>Tracking trade entries and performing in-depth market analysis to
+identify trading opportunities.</li>
+      <li>Analyzed global market trends to develop profitable trading strategies.</li>
+      <li>Conducted market research and surveys to gather insights for
+investment strategies.</li>
+<li>In-depth knowledge of mutual fund schemes, including open-ended
+and closed-ended funds, SIPs (Systematic Investment Plans), taxsaving funds (ELSS), sectoral funds, and international funds. </li>
+<li>Experience in conducting market research, tracking industry trends,
+and evaluating the performance of mutual fund schemes.</li>
+<li> Proficient in analyzing and interpreting financial statements, fund
+reports, and market data to advise clients on investment opportunities</li>
+    </ul>
+  </div>
+</div>
+
+<div class="experience">
+  <div class="card" onclick="toggleDetails(this)">
+    <div class="role">Technical Analyst</div>
+    <div class="company">ProfitZone Investments </div>
+    <div class="date">MAR 2021 - FEB 2024</div>
+    <div class="summary">
+     Managing forex portfolios and client investments.
+    </div>
+  </div>
+
+  <div class="details">
+    <h3>Responsibilities</h3>
+    <ul>
+      <li>Provided trading calls and investment recommendations to clients
+across forex markets.</li>
+      <li>Managed client portfolios under the Portfolio Management Services
+(PMS), aligning strategies with individual financial goals.</li>
+      <li>Maintained detailed Excel sheets to track trades, profits/losses, and
+performance metrics.</li>
+      <li>Operated and monitored trading accounts on behalf of clients,
+ensuring timely execution and compliance.</li>
+<li>Conducted short webinars to educate clients on market trends, trading
+strategies, and risk management techniques.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="reveal">
+    <div class="section-label">Research Portfolio</div>
+    <h2 class="section-title">Published Market Research.</h2>
+    <p class="section-sub">A selection of technical and fundamental research reports published under SEBI-registered advisory. Each report represents independent analysis backed by multi-indicator confirmation.</p>
+  </div>
+  <div class="research-grid">
+  <!-- 1: ADANIENSOL -->
+  <div class="research-card reveal">
+    <div class="research-meta">
+      <span class="research-tag tag-bullish">Bullish</span>
+      <span class="research-date">20 Sep 2025</span>
+    </div>
+
+    <h3>Adani Energy Solutions — Falling Channel Breakout</h3>
+
+    <div class="research-highlights">
+      <span class="highlight-pill">Falling Channel Breakout</span>
+      <span class="highlight-pill">50 MA & 200 MA Test</span>
+      <span class="highlight-pill">Fibonacci 50% → 61.8%</span>
+      <span class="highlight-pill">MACD Bullish</span>
+    </div>
+
+    <div class="research-rec">
+      BUY ABV ₹877 | TGT ₹981 | SL ₹818
+    </div>
+
+    <a href="Adani-Energy-solutions.pdf" target="_blank" class="btn">
+      View Full Research PDF
+    </a>
+  </div>
+
+
+  <!-- 2: JBMA -->
+  <div class="research-card reveal">
+    <div class="research-meta">
+      <span class="research-tag tag-bullish">Bullish</span>
+      <span class="research-date">30 Oct 2025</span>
+    </div>
+
+    <h3>JBM Auto (JBMA) — Techno Titan Breakout Analysis</h3>
+
+
+    <div class="research-highlights">
+      <span class="highlight-pill">Falling Channel Exit</span>
+      <span class="highlight-pill">Above 50 & 200 MA</span>
+      <span class="highlight-pill">Fibonacci 50% → 78.6%</span>
+      <span class="highlight-pill">RSI 57 — Room to Run</span>
+    </div>
+
+    <div class="research-rec">
+      BUY ABV ₹682.65 | TGT ₹745 | SL ₹650
+    </div>
+
+    <a href="JBMA.pdf" target="_blank" class="btn">
+      View Full Research PDF
+    </a>
+  </div>
+
+
+  <!-- 3: PRICOL (MERGED WITH FINANCIAL DEEP DIVE) -->
+  <div class="research-card reveal">
+    <div class="research-meta">
+      <span class="research-tag tag-bullish">Equity Research</span>
+      <span class="research-date">30 Oct 2025</span>
+    </div>
+
+    <h3>Pricol Ltd — Fundamental, Technical & Financial Deep Dive</h3>
+
+    <div class="research-highlights">
+      <span class="highlight-pill">SWOT Analysis</span>
+      <span class="highlight-pill">P/E: 38.3 | ROCE: 22.9%</span>
+      <span class="highlight-pill">FY25 Revenue ₹2,692 Cr</span>
+      <span class="highlight-pill">EPS ₹3 → ₹14</span>
+      <span class="highlight-pill">OCF ₹309 Cr</span>
+      <span class="highlight-pill">Falling Channel Breakout</span>
+    </div>
+
+    <div class="research-rec">
+      BUY ABV ₹540.30 | TGT ₹600 | SL ₹500
+    </div>
+
+    <a href="pricol-Ltd.pdf" target="_blank" class="btn">
+      View Full Research PDF
+    </a>
+  </div>
+
+
+  <!-- 4: NIFTY REALTY + ANANTRAJ + DLF -->
+  <div class="research-card reveal">
+    <div class="research-meta">
+      <span class="research-tag tag-bearish">Bearish</span>
+      <span class="research-date">8 Dec 2025</span>
+    </div>
+
+    <h3>Nifty Realty, Anantraj & DLF — Realty Sector Bearish Outlook</h3>
+
+    <div class="research-highlights">
+      <span class="highlight-pill">Triangle Pattern Failure</span>
+      <span class="highlight-pill">Anantraj Symmetrical Triangle</span>
+      <span class="highlight-pill">DLF Falling Channel</span>
+      <span class="highlight-pill">MACD Bearish Cross</span>
+      
+    </div>
+
+    <div class="research-rec">
+      NIFTY REALTY SELL BLW ₹870 | ANANTRAJ SELL ₹507 TGT ₹396 |
+      DLF SELL ₹695 TGT ₹600
+    </div>
+
+    <a href="nifty-realty.pdf" target="_blank" class="btn">
+      View Full Research PDF
+    </a>
+  </div>
+
+
+  <!-- 5: NIFTY ENERGY + VALUATION STUDY -->
+  <div class="research-card reveal">
+    <div class="research-meta">
+      <span class="research-tag tag-sector">Sector Report</span>
+      <span class="research-date">12 Mar 2026</span>
+    </div>
+
+    <h3>Nifty Energy — Technical, Valuation & Sector Outlook</h3>
+
+
+    <div class="research-highlights">
+      <span class="highlight-pill">6 Stocks Covered</span>
+      <span class="highlight-pill">RSI 57 Rising</span>
+      <span class="highlight-pill">MACD Bullish Cross</span>
+      <span class="highlight-pill">Volume Accumulation</span>
+      <span class="highlight-pill">P/E & ROE Matrix</span>
+      <span class="highlight-pill">Dividend Yield Screen</span>
+    </div>
+
+    <div class="research-rec">
+      NTPC BUY ABV ₹390 | POWERGRID BUY ABV ₹303 |
+      ADANI POWER (ROE 26.1%)
+    </div><br>
+
+    <a href="nifty-energy.pdf" target="_blank" class="btn">
+      View Full Research PDF
+    </a>
+  </div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Let's Build Something<br>Together.</h2>
+    <p class="section-sub">Open to research collaborations, advisory roles, and full-time analyst positions across equity, commodity, and derivatives markets.</p>
+  </div>
+  <div class="contact-inner reveal">
+    <div class="contact-card">
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">sakshideshmukh844@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+91 8446528389</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Kalyan, Maharashtra, India</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🏢</div>
+        <div>
+          <div class="contact-label">Research Published At</div>
+          <div class="contact-value">Kedia Stocks & Commodities Research Pvt. Ltd.</div>
+        </div>
+      </div>
+      <div class="sebi-badge">Research published under SEBI Reg. No. INH000006156</div>
+     <br><a href="sakshi-cv.pdf" target="_blank" class="btn">
+  Download Resume
+</a>
+ 
+    </div>
+   
+    <div>
+      <div class="about-card">
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:16px;">Areas of Expertise</h3>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent3);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Technical chart pattern identification & trading calls</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Equity fundamental research & SWOT analysis</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent2);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Commodity & Forex market analysis</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent3);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Sector-level index analysis & peer comparisons</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">F&O strategy, portfolio advisory & SIP planning</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent2);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Multi-indicator confluence (MACD, RSI, Fibonacci, Volume)</span>
+          </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent2);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Conducted daily/weekly Equity Roundups and market updates.</span>
+          </div>
+           <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:var(--accent2);flex-shrink:0;"></div>
+            <span style="color:var(--muted);font-size:0.9rem;">Provided market outlooks and stock recommendations.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br> <br> <br> 
+<footer>
+  <p>© 2026 <span>Sakshi Deshmukh</span> — Research & Technical Analyst | Kalyan, Maharashtra</p>
+  <p style="margin-top:0px;font-size:0.78rem;color:rgba(122,132,153,0.6);">This portfolio is for informational purposes only and does not constitute financial advice.</p>
+  
+</footer>
+
+<script>
+/* ── ANIMATED CANVAS BG ── */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+
+let W, H, particles = [], connections = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.r = Math.random() * 1.5 + 0.5;
+    this.alpha = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.5 ? '#00d4ff' : '#00ff9d';
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > W) this.vx *= -1;
+    if (this.y < 0 || this.y > H) this.vy *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = this.color + Math.floor(this.alpha * 255).toString(16).padStart(2,'0');
+    ctx.fill();
+  }
+}
+
+function init() {
+  resize();
+  particles = Array.from({ length: 80 }, () => new Particle());
+}
+
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        const alpha = (1 - dist / 120) * 0.12;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+/* Floating chart candles in background */
+let candleT = 0;
+function drawAmbientCandles() {
+  candleT += 0.003;
+  const positions = [
+    { x: W * 0.85, y: H * 0.3, scale: 0.8 },
+    { x: W * 0.1, y: H * 0.7, scale: 0.6 },
+    { x: W * 0.92, y: H * 0.75, scale: 0.5 }
+  ];
+  positions.forEach((pos, i) => {
+    const osc = Math.sin(candleT + i * 2) * 20;
+    const alpha = 0.05 + Math.sin(candleT * 0.5 + i) * 0.02;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(pos.x, pos.y + osc);
+    ctx.scale(pos.scale, pos.scale);
+    // Simple candle shape
+    const w = 10, h = 40;
+    ctx.fillStyle = i % 2 === 0 ? '#00ff9d' : '#ff6b6b';
+    ctx.fillRect(-w/2, -h/2, w, h);
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.fillRect(-1, -h/2 - 15, 2, 15);
+    ctx.fillRect(-1, h/2, 2, 15);
+    ctx.restore();
+  });
+}
+
+/* Grid overlay */
+function drawGrid() {
+  ctx.strokeStyle = 'rgba(255,255,255,0.018)';
+  ctx.lineWidth = 1;
+  const gap = 60;
+  for (let x = 0; x < W; x += gap) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H; y += gap) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  drawGrid();
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawConnections();
+  drawAmbientCandles();
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize', () => { resize(); particles.forEach(p => p.reset()); });
+init();
+animate();
+
+/* ── CURSOR GLOW ── */
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+/* ── SCROLL REVEAL ── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+
+/* Stagger research cards */
+document.querySelectorAll('.research-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 80) + 'ms';
+});
+document.querySelectorAll('.exp-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 100) + 'ms';
+});
+function toggleDetails(card) {
+  document.querySelectorAll('.details')
+    .forEach(d => {
+      if (d !== card.nextElementSibling) {
+        d.classList.remove('show');
+      }
+    });
+
+  card.nextElementSibling.classList.toggle('show');
+}
+</script>
+</body>
+</html>
